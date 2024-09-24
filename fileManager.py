@@ -25,10 +25,13 @@ def openFile(file_location : str) -> bytes:
 
 
 def saveFile(file_location : str, file_data : bytes):
-    file_name = ''.join(os.path.basename(file_location).split('.')[:-1])
-    file_name = '_'.join(file_name.split('_')[::-1]) + ".dat"
-    root_dir = os.getcwd() 
-    file_name = os.path.join(root_dir, 'Output', file_name)
+    dir = os.path.join(os.getcwd(),'Output') 
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+    file_name = '_'.join(''.join(os.path.basename(file_location).split('.')[:-1]).split('_')[::-1]) + ".dat"
+    file_name = os.path.join(dir, file_name)
+    
     try:
         with open(file_name, 'wb') as reversed_file:
             reversed_file.write(file_data)

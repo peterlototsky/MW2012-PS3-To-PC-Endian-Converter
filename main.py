@@ -1,6 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+from PyQt5.QtGui import QColor, QBrush
 from MainWindow import Ui_MainWindow
 
 import fileManager
@@ -24,29 +25,30 @@ class MainWindow(QMainWindow):
             self.list_dat_files(folder)
 
     def list_dat_files(self, folder_path):
-        # Clear the existing items in the QListWidget
         self.ui.listWidget.clear()
         self.files = []
 
         self.files = fileManager.openFolder(folder_path)
         
-        # Add each .dat file to the QListWidget
         for file_name in self.files:
             self.ui.listWidget.addItem(os.path.basename(file_name))
 
 
     def start_conversion(self, param1):
         self.ui.progressBar.setMaximum(len(self.files))
-        files_coverted = 0
+        files_converted = 0
         if self.files:
             for file in self.files:
+                item = self.ui.listWidget.item(files_converted)
                 output = conversionRunner.convert(file)
                 if output[0]:
                     self.ui.textEdit.append(f'{output[1]}\n')
+                    item.setBackground(QBrush(QColor("red")))
                 else:
                     self.ui.textEdit.append(f'Wrote File {output[1]}\n')
-                files_coverted = files_coverted + 1
-                self.ui.progressBar.setValue(files_coverted)
+                    item.setBackground(QBrush(QColor("green")))
+                files_converted = files_converted + 1
+                self.ui.progressBar.setValue(files_converted)
         else:
             self.ui.textEdit.append("No Files to Convert\n")
 
