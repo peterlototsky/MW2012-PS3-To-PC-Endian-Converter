@@ -16,7 +16,7 @@ def convert(file_path):
         elif genType == GenEnum.GenesisType:
             file_reversed = genesisType.changeEndianness(file_data)
         elif genType == GenEnum.GenesisObject:
-            file_reversed = genesisObject.changeEndianness(file_data)
+            file_reversed = genesisObject.changeEndianness(file_data, genType)
         else:
             file_reversed = None
         

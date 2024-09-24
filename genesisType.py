@@ -33,7 +33,7 @@ def flipBytes(file_data : bytes, number_offsets : int, offsets, word_size : int 
     length_file = len(file_data)
 
     '''
-    1. Flip all chunks marked by offsets
+    1. Flip all chunks at offsets
     2. Flip linker chunk
     3. Flip number of offsets word
     4. Flip string offset
