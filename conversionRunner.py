@@ -12,7 +12,7 @@ def convert(file_path):
         genType = determineType(file_data)
         
         if genType == GenEnum.UnknownType:
-            return (True, f'Unknown Type for {file_path}')
+            return (True, f'Unknown Type for {file_path} : ({file_data[0:2].hex()}, {file_data[8:12].hex()})')
         elif genType == GenEnum.GenesisType:
             file_reversed = genesisType.changeEndianness(file_data)
         elif genType == GenEnum.GenesisObject:
