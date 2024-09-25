@@ -1,10 +1,10 @@
-import fileManager
-import genesisObject as genesisObject
-import genesisType as genesisType
+import Scripts.genesisObject as genesisObject
+import Scripts.genesisType as genesisType
 
-from GenesisEnum import GenEnum
+from Types.GenesisEnum import GenEnum
+import Tools.fileManager as fileManager
 
-def convert(file_path):
+def convert(file_path) -> tuple:
 
     file_data = fileManager.openFile(file_path)
     if isinstance(file_data, bytes):

@@ -1,4 +1,4 @@
-from GenesisEnum import GenEnum
+from Types.GenesisEnum import GenEnum
 
 
 def changeEndianness(file_data : bytes, Gentype : GenEnum):

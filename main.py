@@ -2,10 +2,10 @@ import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtGui import QColor, QBrush
-from MainWindow import Ui_MainWindow
+from UI.MainWindow import Ui_MainWindow
 
-import fileManager
-import conversionRunner
+import Tools.fileManager as fileManager
+import Tools.conversionRunner as conversionRunner
 
 class MainWindow(QMainWindow):
     def __init__(self):
