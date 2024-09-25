@@ -26,24 +26,12 @@ class conversionRunner:
             self.converter_thread = threading.Thread(target=self.converter, name=thread_name)
             self.converter_thread.start()
 
-        '''
-        files_converted = 0
-        if self.files:
-            for file in self.files:
-                item = self.ui.listWidget.item(files_converted)
-                output = conversionRunner.convert(file)
-                if output[0]:
-                    self.ui.textEdit.append(f'{output[1]}\n')
-                else:
-                    self.ui.textEdit.append(f'Wrote File {output[1]}\n')
-                files_converted = files_converted + 1
-        '''
-
 
     def converter(self):
         self.is_running = True
         
         files_converted = 0
+        unknown_types = []
         if self.file_list:
             for file_path in self.file_list:
                 file_data = fileManager.openFile(file_path)
@@ -53,6 +41,10 @@ class conversionRunner:
 
                     if genType == GenEnum.UnknownType:
                         file_reversed = f'Unknown Type for {file_path} : ({file_data[0:2].hex()}, {file_data[8:12].hex()})'
+                        if file_data[8:12].hex() not in unknown_types:
+                            unknown_types.append(file_data[8:12].hex())
+                        if file_data[0:2].hex() not in unknown_types:
+                            unknown_types.append(file_data[0:2].hex())
                     elif genType == GenEnum.GenesisType:
                         file_reversed = genesisType.changeEndianness(file_data)
                     elif genType == GenEnum.GenesisObject:
@@ -77,6 +69,7 @@ class conversionRunner:
                 files_converted = files_converted + 1
                 self.gui_signals.increment_progress_bar.emit(files_converted)
         
+        self.gui_signals.output_to_console.emit(f'Unknown Types: {unknown_types}')
         self.is_running = False
 
 
