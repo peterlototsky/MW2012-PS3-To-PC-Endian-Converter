@@ -27,7 +27,8 @@ This tool converts Genesis Objects and Types from *Need for Speed: Most Wanted (
 3. Install Packages:
    cd to project folder
    ```bash
-   pip install pyqt5  
+   pip install pyqt5
+   pip install pyinstaller
    ```
 4. Run pyinstaller
    ```bash
